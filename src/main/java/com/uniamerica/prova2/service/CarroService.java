@@ -6,6 +6,7 @@ import com.uniamerica.prova2.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,4 +34,7 @@ public class CarroService {
                 .collect(Collectors.toList());
     }
 
+    public List<Carro> searchByDate(LocalDate dataRetirada, LocalDate dataDevolucao){
+        return carroRepository.searchByDate(dataRetirada, dataDevolucao);
+    }
 }

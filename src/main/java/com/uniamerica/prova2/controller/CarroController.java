@@ -6,6 +6,7 @@ import com.uniamerica.prova2.model.Marca;
 import com.uniamerica.prova2.service.CarroService;
 import com.uniamerica.prova2.service.MarcaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,13 @@ public class CarroController {
             throw new Exception(e);
         }
         return new ResponseEntity<>(add, null, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Carro>> searchByDate(
+            @RequestParam("dataRetirada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataRetirada ,
+            @RequestParam("dataDevolucao") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataDevolucao){
+        return ResponseEntity.ok(carroService.searchByDate(dataRetirada, dataDevolucao));
     }
 
     @GetMapping("/marca/{id}")
